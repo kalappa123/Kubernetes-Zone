@@ -1,19 +1,19 @@
-apiVersion::V1
+apiVersion: V1
 kind: ReplicationController
 metadata: 
    name: simple-rc 
 spec: 
-  replicas: 2
+  replicas: 3
   selector: 
      app: nginx
   template: 
     metadata: 
       labels: 
-        app:nginx
+        app: nginx
         ver: "1.0"
     spec: 
        containers: 
-          - name:simple-pod
+          - name: simple-pod
             image: nginx
             ports: 
               - containerPort: 80
