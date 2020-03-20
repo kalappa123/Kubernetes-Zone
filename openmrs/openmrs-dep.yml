@@ -1,24 +1,29 @@
-apiVersion: extensions/v1beta1
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-   name: openmrs-deploy
+  name: openmrs-deploy
 spec:
-   replicas: 3
-   minReadySeconds: 30
-   strategy:
-      type: RollingUpdate
-      rollingUpdate:
-         maxUnavilable: 1
-         maxSurge: 1
-   template:
-      metadata:
-         labels:
-            app: openmrs
-      spec: 
-        containers:
-         - name: openmrs
-           image: kalappa/openmrs
-           ports:
+  minReadySeconds: 10
+  replicas: 3
+  selector:
+    matchLabels:
+      app: openmrscore
+      ver: 2.3.0
+  strategy:
+    rollingUpdate:
+      maxSurge: 35%
+      maxUnavailable: 30%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: openmrscore
+        ver: 2.3.0
+    spec:
+      containers:
+        - name: openmrscore
+          image: kalappa/openmrs-core:2.3.0
+          ports:
             - containerPort: 8080
-      
-
+              protocol: TCP
