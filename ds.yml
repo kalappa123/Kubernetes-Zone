@@ -5,15 +5,17 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app: nginx-pod
   template:
     metadata:
       name: nginx-pod
       labels:
-        app: nginx
+        app: nginx-pod
     spec: 
+      nodeSelector:
+          name:node1
       containers:
-        - name: nginxcontainer
+        - name: webserver
           image: nginx
           ports:
           - containerPort: 80	
